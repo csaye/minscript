@@ -10,25 +10,34 @@ fin.close()
 # open output
 fout = open('./output.txt', 'w')
 
+def process_command(command, args):
+    global index
+    # comment
+    if command == '#':
+        index += 1
+    # print
+    elif command == 'print':
+        fout.write(' '.join(args) + '\n')
+    # skip next line
+    elif command == 'skip':
+        index += 2
+    # for loop
+    elif command == 'for':
+        try:
+            count = int(args[0])
+            for i in range(count):
+                process_command(args[1], args[2:])
+        except:
+            fout.write('! Invalid for loop !\n')
+    # unrecognized command
+    else:
+        fout.write('! Command ' + command + ' not recognized !\n')
+
 index = 0
 while index < len(lines):
     words = lines[index].split()
     command = words[0]
-    # comment
-    if command == '#':
-        index += 1
-        continue
-    # print
-    elif command == 'print':
-        fout.write(' '.join(words[1:]))
-    # skip next line
-    elif command == 'skip':
-        index += 2
-        continue
-    # unrecognized command
-    else:
-        fout.write('Command ' + command + ' not recognized')
-    fout.write('\n')
+    process_command(command, words[1:])
     index += 1
 
 # close output
