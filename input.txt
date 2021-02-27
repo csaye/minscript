@@ -1,3 +1,0 @@
-print hello world
-# this is a comment
-print hello again
