@@ -1,1 +1,2 @@
-! Invalid var !
+hello world
+not hello world

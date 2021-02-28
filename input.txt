@@ -1,0 +1,5 @@
+varlist 1
+var 0 hello world
+print var 0
+var 0 not hello world
+print var 0

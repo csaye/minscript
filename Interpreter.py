@@ -11,12 +11,20 @@ fin.close()
 fout = open('./output.txt', 'w')
 
 def process_command(command, args):
-    global index
+    global index, varlist
     # comment
     if command == '#':
         index += 1
     # print
     elif command == 'print':
+        if len(args) > 1:
+            if args[0] == 'var':
+                try:
+                    varidx = int(args[1])
+                    fout.write(' '.join(varlist[varidx]) + '\n')
+                except:
+                    fout.write('! Invalid var !\n')
+                return
         fout.write(' '.join(args) + '\n')
     # skip next line
     elif command == 'skip':
