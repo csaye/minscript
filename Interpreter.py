@@ -21,6 +21,7 @@ def process_command(command, args):
     # skip next line
     elif command == 'skip':
         index += 2
+    # goto line
     elif command == 'goto':
         try:
             line = int(args[0])
@@ -35,10 +36,18 @@ def process_command(command, args):
                 process_command(args[1], args[2:])
         except:
             fout.write('! Invalid for loop !\n')
+    # variable
+    elif command == 'var':
+        try:
+            varidx = int(args[0])
+            varlist[varidx] = args[1:]
+        except:
+            fout.write('! Invalid var !')
     # unrecognized command
     else:
         fout.write('! Command ' + command + ' not recognized !\n')
 
+varlist = []
 index = 0
 while index < len(lines):
     words = lines[index].split()
