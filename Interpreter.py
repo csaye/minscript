@@ -51,6 +51,40 @@ def process_command(command, args):
                 process_command(args[1], args[2:])
         except:
             fout.write('! Invalid for loop !\n')
+    # if statement
+    elif command == 'if':
+        try:
+            if args[0] != 'var':
+                fout.write('! Invalid if !\n')
+                return
+            varidx = int(args[1])
+            var = varlist[varidx]
+            # int var
+            if type(var) is int:
+                if var == int(args[2]):
+                    process_command(args[3], args[4:])
+            # string var                
+            elif var == args[2]:
+                process_command(args[3], args[4:])
+        except:
+            fout.write('! Invalid if !\n')
+    # if not statement
+    elif command == 'ifnot':
+        try:
+            if args[0] != 'var':
+                fout.write('! Invalid ifnot !\n')
+                return
+            varidx = int(args[1])
+            var = varlist[varidx]
+            # int var
+            if type(var) is int:
+                if var != int(args[2]):
+                    process_command(args[3], args[4:])
+            # string var
+            elif var != args[2]:
+                process_command(args[3], args[4:])
+        except:
+            fout.write('! Invalid ifnot !\n')
     # variable
     elif command == 'var':
         try:
@@ -71,7 +105,7 @@ def process_command(command, args):
                 varlist[varidx] = int(args[1])
             # string var
             else:
-                varlist[varidx] = ''.join(args[1:])
+                varlist[varidx] = ' '.join(args[1:])
         except:
             fout.write('! Invalid var !\n')
     # variable list
@@ -90,7 +124,9 @@ varlist = []
 index = 0
 while index < len(lines):
     words = lines[index].split()
-    if len(words) < 1: continue
+    if len(words) < 1:
+        index += 1
+        continue
     command = words[0]
     process_command(command, words[1:])
     index += 1

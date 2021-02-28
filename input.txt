@@ -1,5 +1,8 @@
 varlist 1
 var 0 0
+
+# loop
+if var 0 10 goto 9
 print var 0
 var 0 +
-print var 0
+goto 5
