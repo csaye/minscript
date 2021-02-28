@@ -18,7 +18,7 @@ def is_int(string):
         return False
 
 def process_command(command, args):
-    global index, varlist
+    global index, varlist, lines
     # comment
     if command == '#':
         index += 1
@@ -59,8 +59,33 @@ def process_command(command, args):
                 return
             varidx = int(args[1])
             var = varlist[varidx]
+            # operators
+            if args[2] == '+':
+                if var + int(args[3]) == int(args[4]):
+                    process_command(args[5], args[6:])
+            elif args[2] == '-':
+                if var - int(args[3]) == int(args[4]):
+                    process_command(args[5], args[6:])
+            elif args[2] == '*':
+                if var * int(args[3]) == int(args[4]):
+                    process_command(args[5], args[6:])
+            elif args[2] == '/':
+                if var / int(args[3]) == int(args[4]):
+                    process_command(args[5], args[6:])
+            elif args[2] == '**':
+                if var ** int(args[3]) == int(args[4]):
+                    process_command(args[5], args[6:])
+            elif args[2] == '%':
+                if var % int(args[3]) == int(args[4]):
+                    process_command(args[5], args[6:])
+            elif args[2] == '<':
+                if var < int(args[3]):
+                    process_command(args[4], args[5:])
+            elif args[2] == '>':
+                if var > int(args[3]):
+                    process_command(args[4], args[5:])
             # int var
-            if type(var) is int:
+            elif type(var) is int:
                 if var == int(args[2]):
                     process_command(args[3], args[4:])
             # string var                
@@ -76,6 +101,31 @@ def process_command(command, args):
                 return
             varidx = int(args[1])
             var = varlist[varidx]
+            # operators
+            if args[2] == '+':
+                if var + int(args[3]) != int(args[4]):
+                    process_command(args[5], args[6:])
+            elif args[2] == '-':
+                if var - int(args[3]) != int(args[4]):
+                    process_command(args[5], args[6:])
+            elif args[2] == '*':
+                if var * int(args[3]) != int(args[4]):
+                    process_command(args[5], args[6:])
+            elif args[2] == '/':
+                if var / int(args[3]) != int(args[4]):
+                    process_command(args[5], args[6:])
+            elif args[2] == '**':
+                if var ** int(args[3]) != int(args[4]):
+                    process_command(args[5], args[6:])
+            elif args[2] == '%':
+                if var % int(args[3]) != int(args[4]):
+                    process_command(args[5], args[6:])
+            elif args[2] == '<':
+                if var >= int(args[3]):
+                    process_command(args[4], args[5:])
+            elif args[2] == '>':
+                if var <= int(args[3]):
+                    process_command(args[4], args[5:])
             # int var
             if type(var) is int:
                 if var != int(args[2]):
@@ -95,10 +145,16 @@ def process_command(command, args):
                     varlist[varidx] = varlist[var2idx]
                     return
             if args[1] == '+':
-                varlist[varidx] += 1
+                if len(args) > 2:
+                    varlist[varidx] += int(args[2])
+                else:
+                    varlist[varidx] += 1
                 return
             elif args[1] == '-':
-                varlist[varidx] -= 1
+                if len(args) > 2:
+                    varlist[varidx] -= int(args[2])
+                else:
+                    varlist[varidx] -= 1
                 return
             # int var
             if is_int(args[1]):
@@ -116,6 +172,9 @@ def process_command(command, args):
                 varlist.append(None)
         except:
             fout.write('! Invalid varlist !\n')
+    # end program
+    elif command == 'end':
+        index = len(lines)
     # unrecognized command
     else:
         fout.write('! Command ' + command + ' not recognized !\n')
