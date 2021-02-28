@@ -1,6 +1,5 @@
-varlist 2
-var 0 hello
-var 1 world
+varlist 1
+var 0 0
 print var 0
-var 0 var 1
+var 0 +
 print var 0

@@ -10,6 +10,13 @@ fin.close()
 # open output
 fout = open('./output.txt', 'w')
 
+def is_int(string):
+    try:
+        int(string)
+        return True
+    except:
+        return False
+
 def process_command(command, args):
     global index, varlist
     # comment
@@ -21,7 +28,7 @@ def process_command(command, args):
             if args[0] == 'var':
                 try:
                     varidx = int(args[1])
-                    fout.write(' '.join(varlist[varidx]) + '\n')
+                    fout.write(str(varlist[varidx]) + '\n')
                 except:
                     fout.write('! Invalid var !\n')
                 return
@@ -53,7 +60,18 @@ def process_command(command, args):
                     var2idx = int(args[2])
                     varlist[varidx] = varlist[var2idx]
                     return
-            varlist[varidx] = args[1:]
+            if args[1] == '+':
+                varlist[varidx] += 1
+                return
+            elif args[1] == '-':
+                varlist[varidx] -= 1
+                return
+            # int var
+            if is_int(args[1]):
+                varlist[varidx] = int(args[1])
+            # string var
+            else:
+                varlist[varidx] = ''.join(args[1:])
         except:
             fout.write('! Invalid var !\n')
     # variable list
