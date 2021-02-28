@@ -48,6 +48,11 @@ def process_command(command, args):
     elif command == 'var':
         try:
             varidx = int(args[0])
+            if len(args) > 2:
+                if args[1] == 'var':
+                    var2idx = int(args[2])
+                    varlist[varidx] = varlist[var2idx]
+                    return
             varlist[varidx] = args[1:]
         except:
             fout.write('! Invalid var !\n')
@@ -67,6 +72,7 @@ varlist = []
 index = 0
 while index < len(lines):
     words = lines[index].split()
+    if len(words) < 1: continue
     command = words[0]
     process_command(command, words[1:])
     index += 1
