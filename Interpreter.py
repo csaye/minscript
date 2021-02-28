@@ -21,6 +21,12 @@ def process_command(command, args):
     # skip next line
     elif command == 'skip':
         index += 2
+    elif command == 'goto':
+        try:
+            line = int(args[0])
+            index = line - 2
+        except:
+            fout.write('! Invalid goto !')
     # for loop
     elif command == 'for':
         try:

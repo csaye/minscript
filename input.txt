@@ -1,3 +1,8 @@
-print start
-for 10 print hello
-print end
+print 1
+print 2
+goto 7
+print 4
+print 5
+print 6
+print 7
+print 8
