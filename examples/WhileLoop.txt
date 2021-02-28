@@ -1,0 +1,6 @@
+varlist 1
+var 0 0
+if var 0 10 end
+print var 0
+var 0 +
+goto 5

@@ -1,0 +1,4 @@
+varlist 1
+var 0 0
+if var 0 0 print hello
+ifnot var 0 1 print world
