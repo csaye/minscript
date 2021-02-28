@@ -42,7 +42,15 @@ def process_command(command, args):
             varidx = int(args[0])
             varlist[varidx] = args[1:]
         except:
-            fout.write('! Invalid var !')
+            fout.write('! Invalid var !\n')
+    # variable list
+    elif command == 'varlist':
+        try:
+            count = int(args[0])
+            while len(varlist) < count:
+                varlist.append(None)
+        except:
+            fout.write('! Invalid varlist !\n')
     # unrecognized command
     else:
         fout.write('! Command ' + command + ' not recognized !\n')
