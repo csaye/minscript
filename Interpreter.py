@@ -66,18 +66,6 @@ def process_command(command, args):
             elif args[2] == '-':
                 if var - int(args[3]) == int(args[4]):
                     process_command(args[5], args[6:])
-            elif args[2] == '*':
-                if var * int(args[3]) == int(args[4]):
-                    process_command(args[5], args[6:])
-            elif args[2] == '/':
-                if var / int(args[3]) == int(args[4]):
-                    process_command(args[5], args[6:])
-            elif args[2] == '**':
-                if var ** int(args[3]) == int(args[4]):
-                    process_command(args[5], args[6:])
-            elif args[2] == '%':
-                if var % int(args[3]) == int(args[4]):
-                    process_command(args[5], args[6:])
             elif args[2] == '<':
                 if var < int(args[3]):
                     process_command(args[4], args[5:])
@@ -108,18 +96,6 @@ def process_command(command, args):
             elif args[2] == '-':
                 if var - int(args[3]) != int(args[4]):
                     process_command(args[5], args[6:])
-            elif args[2] == '*':
-                if var * int(args[3]) != int(args[4]):
-                    process_command(args[5], args[6:])
-            elif args[2] == '/':
-                if var / int(args[3]) != int(args[4]):
-                    process_command(args[5], args[6:])
-            elif args[2] == '**':
-                if var ** int(args[3]) != int(args[4]):
-                    process_command(args[5], args[6:])
-            elif args[2] == '%':
-                if var % int(args[3]) != int(args[4]):
-                    process_command(args[5], args[6:])
             elif args[2] == '<':
                 if var >= int(args[3]):
                     process_command(args[4], args[5:])
@@ -145,13 +121,19 @@ def process_command(command, args):
                     varlist[varidx] = varlist[var2idx]
                     return
             if args[1] == '+':
-                if len(args) > 2:
+                if len(args) > 3 and args[2] == 'var':
+                    var2idx = int(args[3])
+                    varlist[varidx] += varlist[var2idx]
+                elif len(args) > 2:
                     varlist[varidx] += int(args[2])
                 else:
                     varlist[varidx] += 1
                 return
             elif args[1] == '-':
-                if len(args) > 2:
+                if len(args) > 3 and args[2] == 'var':
+                    var2idx = int(args[3])
+                    varlist[varidx] -= varlist[var2idx]
+                elif len(args) > 2:
                     varlist[varidx] -= int(args[2])
                 else:
                     varlist[varidx] -= 1
