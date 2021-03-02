@@ -46,6 +46,16 @@ def process_command(command, args):
     # for loop
     elif command == 'for':
         try:
+            if len(args) > 1:
+                if args[0] == 'var':
+                    try:
+                        varidx = int(args[1])
+                        count = varlist[varidx]
+                        for i in range(count):
+                            process_command(args[2], args[3:])
+                    except:
+                        fout.write('! Invalid var !\n')
+                return
             count = int(args[0])
             for i in range(count):
                 process_command(args[1], args[2:])
