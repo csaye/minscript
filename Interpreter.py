@@ -62,49 +62,31 @@ def prc_com(command, args):
     # for loop
     elif command == 'for':
         try:
-            if len(args) > 1:
-                if args[0] == 'var':
-                    try:
-                        varidx = int(args[1])
-                        count = varlist[varidx]
-                        for i in range(count):
-                            process_command(args[2], args[3:])
-                    except:
-                        fout.write('! Invalid var !\n')
-                return
-            count = int(args[0])
+            count = prc_int(args[0])
             for i in range(count):
-                process_command(args[1], args[2:])
+                prc_com(args[1], args[2:])
         except:
             fout.write('! Invalid for loop !\n')
     # if statement
     elif command == 'if':
         try:
-            if args[0] != 'var':
-                fout.write('! Invalid if !\n')
-                return
-            varidx = int(args[1])
-            var = varlist[varidx]
+            a = prc_int(args[0])
             # operators
-            if args[2] == '+':
-                if var + int(args[3]) == int(args[4]):
-                    process_command(args[5], args[6:])
-            elif args[2] == '-':
-                if var - int(args[3]) == int(args[4]):
-                    process_command(args[5], args[6:])
-            elif args[2] == '<':
-                if var < int(args[3]):
+            if args[1] == '+':
+                if a + prc_int(args[2]) == prc_int(args[3]):
                     process_command(args[4], args[5:])
-            elif args[2] == '>':
-                if var > int(args[3]):
+            elif args[1] == '-':
+                if a - prc_int(args[2]) == prc_int(args[3]):
                     process_command(args[4], args[5:])
-            # int var
-            elif type(var) is int:
-                if var == int(args[2]):
+            elif args[1] == '<':
+                if a < prc_int(args[2]):
+                    prc_com(args[3], args[4:])
+            elif args[1] == '>':
+                if a > prc_int(args[2]):
+                    prc_com(args[3], args[4:])
+            else:
+                if a == prc_int(args[2]):
                     process_command(args[3], args[4:])
-            # string var                
-            elif var == args[2]:
-                process_command(args[3], args[4:])
         except:
             fout.write('! Invalid if !\n')
     # variable
