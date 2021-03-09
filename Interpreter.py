@@ -91,36 +91,6 @@ def process_command(command, args):
                 process_command(args[3], args[4:])
         except:
             fout.write('! Invalid if !\n')
-    # if not statement
-    elif command == 'ifnot':
-        try:
-            if args[0] != 'var':
-                fout.write('! Invalid ifnot !\n')
-                return
-            varidx = int(args[1])
-            var = varlist[varidx]
-            # operators
-            if args[2] == '+':
-                if var + int(args[3]) != int(args[4]):
-                    process_command(args[5], args[6:])
-            elif args[2] == '-':
-                if var - int(args[3]) != int(args[4]):
-                    process_command(args[5], args[6:])
-            elif args[2] == '<':
-                if var >= int(args[3]):
-                    process_command(args[4], args[5:])
-            elif args[2] == '>':
-                if var <= int(args[3]):
-                    process_command(args[4], args[5:])
-            # int var
-            if type(var) is int:
-                if var != int(args[2]):
-                    process_command(args[3], args[4:])
-            # string var
-            elif var != args[2]:
-                process_command(args[3], args[4:])
-        except:
-            fout.write('! Invalid ifnot !\n')
     # variable
     elif command == 'var':
         try:
