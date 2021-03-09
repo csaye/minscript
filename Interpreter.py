@@ -20,7 +20,7 @@ def is_int(string):
 
 # process int
 def prc_int(string):
-    if string.startswith(var):
+    if string.startswith('var'):
         varidx = int(string[3:])
         return varlist[varidx]
     else:
@@ -74,10 +74,10 @@ def prc_com(command, args):
             # operators
             if args[1] == '+':
                 if a + prc_int(args[2]) == prc_int(args[3]):
-                    process_command(args[4], args[5:])
+                    prc_com(args[4], args[5:])
             elif args[1] == '-':
                 if a - prc_int(args[2]) == prc_int(args[3]):
-                    process_command(args[4], args[5:])
+                    prc_com(args[4], args[5:])
             elif args[1] == '<':
                 if a < prc_int(args[2]):
                     prc_com(args[3], args[4:])
@@ -85,8 +85,8 @@ def prc_com(command, args):
                 if a > prc_int(args[2]):
                     prc_com(args[3], args[4:])
             else:
-                if a == prc_int(args[2]):
-                    process_command(args[3], args[4:])
+                if a == prc_int(args[1]):
+                    prc_com(args[2], args[3:])
         except:
             fout.write('! Invalid if !\n')
     # variable
@@ -96,30 +96,25 @@ def prc_com(command, args):
             # zero arg
             if len(args) < 1:
                 varlist[varidx] = ''
-            # one arg
-            elif len(args) == 1:
-                # int arg
-                if is_int(args[0]):
-                    varlist[varidx] = int(args[0])
-                # var arg
-                elif args[0].startswith('var'):
-                    varlist[varidx] = prc_var(args[0])
-                # str arg
-                else:
-                    varlist[varidx] = args[0]
             # add operator
-            elif args[1] == '+':
-                if len(args) > 2:
-                    varlist[varidx] += prc_int(args[2])
+            elif args[0] == '+':
+                if len(args) > 1:
+                    varlist[varidx] += prc_int(args[1])
                 else:
                     varlist[varidx] += 1
             # sub operator
-            elif args[1] == '-':
-                if len(args) > 2:
-                    varlist[varidx] -= prc_int(args[2])
+            elif args[0] == '-':
+                if len(args) > 1:
+                    varlist[varidx] -= prc_int(args[1])
                 else:
                     varlist[varidx] -= 1
-            # string var
+            # int arg
+            elif is_int(args[0]):
+                varlist[varidx] = int(args[0])
+            # var arg
+            elif args[0].startswith('var'):
+                varlist[varidx] = prc_var(args[0])
+            # str arg
             else:
                 varlist[varidx] = ' '.join(args)
         except:
