@@ -49,6 +49,10 @@ def prc_com(command, args):
     elif command == 'print':
         string = prc_str(' '.join(args))
         fout.write(string + '\n')
+    # print inline
+    elif command == 'printin':
+        string = prc_str(' '.join(args))
+        fout.write(string)
     # skip next line
     elif command == 'skip':
         index += 2
