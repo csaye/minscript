@@ -89,22 +89,23 @@ def prc_com(command, args):
     # if statement
     elif command == 'if':
         try:
-            a = prc_int(args[0])
-            # operators
-            if args[1] == '+':
-                if a + prc_int(args[2]) == prc_int(args[3]):
-                    prc_com(args[4], args[5:])
-            elif args[1] == '-':
-                if a - prc_int(args[2]) == prc_int(args[3]):
-                    prc_com(args[4], args[5:])
-            elif args[1] == '<':
-                if a < prc_int(args[2]):
+            # get value and modifier
+            v_a = prc_int(args[0])
+            mod = args[1]
+            # 2 arg operation
+            if mod in ops2:
+                v_b = prc_int(args[2])
+                if ops[mod](v_a, v_b):
                     prc_com(args[3], args[4:])
-            elif args[1] == '>':
-                if a > prc_int(args[2]):
-                    prc_com(args[3], args[4:])
+            # 3 arg operation
+            elif mod in ops3:
+                v_b = prc_int(args[2])
+                v_c = prc_int(args[3])
+                if ops[mod](v_a, v_b) == v_c:
+                    prc_com(args[4], args[5:])
+            # single arg comparison
             else:
-                if a == prc_int(args[1]):
+                if v_a == prc_int(mod):
                     prc_com(args[2], args[3:])
         except:
             fout.write('! Invalid if !\n')
@@ -115,24 +116,23 @@ def prc_com(command, args):
             # zero arg
             if len(args) < 1:
                 varlist[varidx] = ''
-            # add operator
-            elif args[0] == '+':
-                if len(args) > 1:
-                    varlist[varidx] += prc_int(args[1])
+                return
+            # get value and modifier
+            v_a = varlist[varidx]
+            mod = args[0]
+            # if operator
+            if mod in ops3:
+                if len(args) < 2:
+                    varlist[varidx] = ops[mod](v_a, 1)
                 else:
-                    varlist[varidx] += 1
-            # sub operator
-            elif args[0] == '-':
-                if len(args) > 1:
-                    varlist[varidx] -= prc_int(args[1])
-                else:
-                    varlist[varidx] -= 1
+                    v_b = int(args[1])
+                    varlist[varidx] = ops[mod](v_a, v_b)
             # int arg
-            elif is_int(args[0]):
-                varlist[varidx] = int(args[0])
+            elif is_int(mod):
+                varlist[varidx] = int(mod)
             # var arg
-            elif args[0].startswith('var'):
-                varlist[varidx] = prc_var(args[0])
+            elif mod.startswith('var'):
+                varlist[varidx] = prc_var(mod)
             # str arg
             else:
                 varlist[varidx] = ' '.join(args)
