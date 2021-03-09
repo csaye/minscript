@@ -1,6 +1,6 @@
 varlist 1
-var 0 0
-if var 0 10 end
-print var 0
-var 0 +
-goto 5
+var0 0
+if var0 10 end
+print var0
+var0 +
+goto 3

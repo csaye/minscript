@@ -1,0 +1,3 @@
+varlist 1
+var0 0
+if var0 0 print hello
