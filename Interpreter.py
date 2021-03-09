@@ -58,8 +58,8 @@ def prc_var(string):
 def prc_com(command, args):
     global index, varlist, lines
     # comment
-    if command == '#':
-        index += 1
+    if command.startswith('#'):
+        return
     # print
     elif command == 'print':
         string = prc_str(' '.join(args))
@@ -78,7 +78,7 @@ def prc_com(command, args):
     # goto line
     elif command == 'goto':
         try:
-            line = int(args[0])
+            line = prc_int(args[0])
             index = line - 2
         except:
             fout.write('! Invalid goto !')
@@ -129,7 +129,7 @@ def prc_com(command, args):
                 if len(args) < 2:
                     varlist[varidx] = ops[mod](v_a, 1)
                 else:
-                    v_b = int(args[1])
+                    v_b = prc_int(args[1])
                     varlist[varidx] = ops[mod](v_a, v_b)
             # int arg
             elif is_int(mod):
@@ -145,7 +145,7 @@ def prc_com(command, args):
     # variable list
     elif command == 'varlist':
         try:
-            count = int(args[0])
+            count = prc_int(args[0])
             while len(varlist) < count:
                 varlist.append('')
         except:
@@ -159,8 +159,10 @@ def prc_com(command, args):
 
 varlist = []
 index = 0
+# go through all lines
 while index < len(lines):
     words = lines[index].split()
+    # if no words in line, continue
     if len(words) < 1:
         index += 1
         continue
