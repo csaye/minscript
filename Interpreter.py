@@ -10,6 +10,7 @@ fin.close()
 # open output
 fout = open('./output.txt', 'w')
 
+# whether string is int
 def is_int(string):
     try:
         int(string)
@@ -17,22 +18,37 @@ def is_int(string):
     except:
         return False
 
-def process_command(command, args):
+# process int
+def prc_int(string):
+    if string.startswith(var):
+        varidx = int(string[3:])
+        return varlist[varidx]
+    else:
+        return int(string)
+
+# process string
+def prc_str(string):
+    if string.startswith('var'):
+        varidx = int(string[3:])
+        return str(varlist[varidx])
+    else:
+        return string
+
+# process var
+def prc_var(string):
+    varidx = int(string[3:])
+    return varlist[varidx]
+
+# process command
+def prc_com(command, args):
     global index, varlist, lines
     # comment
     if command == '#':
         index += 1
     # print
     elif command == 'print':
-        if len(args) > 1:
-            if args[0] == 'var':
-                try:
-                    varidx = int(args[1])
-                    fout.write(str(varlist[varidx]) + '\n')
-                except:
-                    fout.write('! Invalid var !\n')
-                return
-        fout.write(' '.join(args) + '\n')
+        string = prc_str(' '.join(args))
+        fout.write(string + '\n')
     # skip next line
     elif command == 'skip':
         index += 2
@@ -92,38 +108,38 @@ def process_command(command, args):
         except:
             fout.write('! Invalid if !\n')
     # variable
-    elif command == 'var':
+    elif command.startswith('var') and is_int(command[3:]):
         try:
-            varidx = int(args[0])
-            if len(args) > 2:
-                if args[1] == 'var':
-                    var2idx = int(args[2])
-                    varlist[varidx] = varlist[var2idx]
-                    return
-            if args[1] == '+':
-                if len(args) > 3 and args[2] == 'var':
-                    var2idx = int(args[3])
-                    varlist[varidx] += varlist[var2idx]
-                elif len(args) > 2:
-                    varlist[varidx] += int(args[2])
+            varidx = int(command[3:])
+            # zero arg
+            if len(args) < 1:
+                varlist[varidx] = ''
+            # one arg
+            elif len(args) == 1:
+                # int arg
+                if is_int(args[0]):
+                    varlist[varidx] = int(args[0])
+                # var arg
+                elif args[0].startswith('var'):
+                    varlist[varidx] = prc_var(args[0])
+                # str arg
+                else:
+                    varlist[varidx] = args[0]
+            # add operator
+            elif args[1] == '+':
+                if len(args) > 2:
+                    varlist[varidx] += prc_int(args[2])
                 else:
                     varlist[varidx] += 1
-                return
+            # sub operator
             elif args[1] == '-':
-                if len(args) > 3 and args[2] == 'var':
-                    var2idx = int(args[3])
-                    varlist[varidx] -= varlist[var2idx]
-                elif len(args) > 2:
-                    varlist[varidx] -= int(args[2])
+                if len(args) > 2:
+                    varlist[varidx] -= prc_int(args[2])
                 else:
                     varlist[varidx] -= 1
-                return
-            # int var
-            if is_int(args[1]):
-                varlist[varidx] = int(args[1])
             # string var
             else:
-                varlist[varidx] = ' '.join(args[1:])
+                varlist[varidx] = ' '.join(args)
         except:
             fout.write('! Invalid var !\n')
     # variable list
@@ -131,7 +147,7 @@ def process_command(command, args):
         try:
             count = int(args[0])
             while len(varlist) < count:
-                varlist.append(None)
+                varlist.append('')
         except:
             fout.write('! Invalid varlist !\n')
     # end program
@@ -149,7 +165,7 @@ while index < len(lines):
         index += 1
         continue
     command = words[0]
-    process_command(command, words[1:])
+    prc_com(command, words[1:])
     index += 1
 
 # close output
