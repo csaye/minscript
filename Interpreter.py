@@ -70,7 +70,11 @@ def prc_com(command, args):
         fout.write(string)
     # skip next line
     elif command == 'skip':
-        index += 2
+        if len(args) > 0:
+            count = prc_int(args[0])
+            index += count
+        else:
+            index += 1
     # goto line
     elif command == 'goto':
         try:

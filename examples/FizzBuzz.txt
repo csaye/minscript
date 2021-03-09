@@ -1,0 +1,14 @@
+varlist 1
+var0 1
+if var0 > 100 end
+if var0 % 3 0 goto 8
+if var0 % 5 0 goto 12
+print var0
+goto 13
+printin Fizz
+if var0 % 5 0 goto 12
+print
+goto 13
+print Buzz
+var0 +
+goto 3

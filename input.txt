@@ -1,3 +1,0 @@
-varlist 1
-var0 hello world
-print var0
