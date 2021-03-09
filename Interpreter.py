@@ -1,3 +1,18 @@
+# operators
+import operator
+ops2 = ['<', '>']
+ops3 = ['+', '-', '*', '/', '^', '%']
+ops = {
+    '+': operator.add,
+    '-': operator.sub,
+    '*': operator.mul,
+    '/': operator.truediv,
+    '^': operator.pow,
+    '%': operator.mod,
+    '<': operator.lt,
+    '>': operator.gt
+}
+
 # open input
 fin = open('./input.txt', 'r')
 
