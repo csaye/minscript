@@ -9,6 +9,8 @@ A python clone written in python.
 - print
   - outputs rest of line
   - `print hello world` -> `hello world`
+- printin
+  - outputs rest of line with no newline
 - skip
   - skips next line
   - `skip`
@@ -30,24 +32,18 @@ A python clone written in python.
 - var
   - enables variable assignment
   - `varlist 1`
-  - `var 0 hello world`
-  - `print var 0` -> `hello world`
+  - `var0 hello world`
+  - `print var0` -> `hello world`
 - if
   - executes given command if true
   - `varlist 1`
-  - `var 0 a`
-  - `if var 0 b print hello`
-  - `if var 0 a print world` -> `world`
-- ifnot
-  - executes given command if false
-  - `varlist 1`
-  - `var 0 a`
-  - `ifnot var 0 b print hello` -> `hello`
-  - `ifnot var 0 a print world`
+  - `var0 a`
+  - `if var0 b print hello`
+  - `if var0 a print world` -> `world`
 - end
   - ends program
   - `varlist 1`
-  - `var 0 0`
-  - `if var 0 10 end`
-  - `var 0 +`
+  - `var0 0`
+  - `if var0 10 end`
+  - `var0 +`
   - `goto 3`
