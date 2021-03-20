@@ -1,7 +1,7 @@
 # operators
 import operator
 ops2 = ['<', '>']
-ops3 = ['+', '-', '*', '/', '^', '%']
+ops3 = ['+', '-', '*', '/', '^', '%', '//']
 ops = {
     '+': operator.add,
     '-': operator.sub,
@@ -9,6 +9,7 @@ ops = {
     '/': operator.truediv,
     '^': operator.pow,
     '%': operator.mod,
+    '//': operator.floordiv,
     '<': operator.lt,
     '>': operator.gt
 }
@@ -62,19 +63,28 @@ def prc_com(command, args):
         return
     # print
     elif command == 'print':
-        string = prc_str(' '.join(args))
-        fout.write(string + '\n')
+        try:
+            string = prc_str(' '.join(args))
+            fout.write(string + '\n')
+        except:
+            fout.write('! Invalid print !')
     # print inline
     elif command == 'printin':
-        string = prc_str(' '.join(args))
-        fout.write(string)
+        try:
+            string = prc_str(' '.join(args))
+            fout.write(string)
+        except:
+            fout.write('! Invalid printin !')
     # skip next line
     elif command == 'skip':
-        if len(args) > 0:
-            count = prc_int(args[0])
-            index += count
-        else:
-            index += 1
+        try:
+            if len(args) > 0:
+                count = prc_int(args[0])
+                index += count
+            else:
+                index += 1
+        except:
+            fout.write('! Invalid skip !')
     # goto line
     elif command == 'goto':
         try:
@@ -89,7 +99,7 @@ def prc_com(command, args):
             for i in range(count):
                 prc_com(args[1], args[2:])
         except:
-            fout.write('! Invalid for loop !\n')
+            fout.write('! Invalid for !\n')
     # if statement
     elif command == 'if':
         try:
