@@ -1,5 +1,5 @@
-# python-clone
-A python clone written in python.
+# min-script
+A minimalist programming language written in Python.
 
 ## Commands
 
