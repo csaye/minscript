@@ -35,8 +35,13 @@ def split(string):
     # for each char in string
     for i in range(len(string)):
         ch = string[i]
+        # if comment
+        if ch == '#':
+            # close word and return
+            if len(word) > 0: words.append(word)
+            return words
         # parse parentheses
-        if ch == '(':
+        elif ch == '(':
             open_par += 1
         elif ch == ')':
             open_par -= 1
@@ -97,11 +102,8 @@ def prc_var(string):
 # process command
 def prc_com(command, args):
     global index, varlist, lines
-    # comment
-    if command.startswith('#'):
-        return
     # print
-    elif command == 'print':
+    if command == 'print':
         try:
             string = prc_str(' '.join(args))
             fout.write(string + '\n')
@@ -212,7 +214,7 @@ index = 0
 while index < len(lines):
     words = split(lines[index])
     # if no words in line, continue
-    if len(words) < 1:
+    if len(words) == 0:
         index += 1
         continue
     command = words[0]
