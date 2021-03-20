@@ -15,7 +15,7 @@ ops = {
 }
 
 # open input
-fin = open('./input.txt', 'r')
+fin = open('./input.mins', 'r')
 
 # read lines
 lines = fin.read().splitlines()
