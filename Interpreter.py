@@ -26,6 +26,33 @@ fin.close()
 # open output
 fout = open('./output.txt', 'w')
 
+# splits a string with parentheses
+def split(string):
+    words = []
+    word = ''
+    open_par = 0
+    i = 0
+    # for each char in string
+    for i in range(len(string)):
+        ch = string[i]
+        # parse parentheses
+        if ch == '(':
+            open_par += 1
+        elif ch == ')':
+            open_par -= 1
+        # if space and no open parentheses
+        if ch.isspace() and open_par <= 0:
+            # close word and reset
+            if len(word) > 0: words.append(word)
+            word = ''
+        else:
+            word += ch
+        # if end of string
+        if i == len(string) - 1:
+            # close word
+            if len(word) > 0: words.append(word)
+    return words
+
 # whether string is int
 def is_int(string):
     try:
@@ -36,7 +63,19 @@ def is_int(string):
 
 # process int
 def prc_int(string):
-    if string.startswith('var'):
+    # parentheses
+    if string.startswith('('):
+        # cut parentheses
+        i = len(string) - 1
+        string = string[1:i]
+        words = split(string)
+        # process vars and modifier
+        v_a = prc_int(words[0])
+        mod = words[1]
+        v_b = prc_int(words[2])
+        return ops[mod](v_a, v_b)
+    # var
+    elif string.startswith('var'):
         varidx = int(string[3:])
         return varlist[varidx]
     else:
@@ -171,7 +210,7 @@ varlist = []
 index = 0
 # go through all lines
 while index < len(lines):
-    words = lines[index].split()
+    words = split(lines[index])
     # if no words in line, continue
     if len(words) < 1:
         index += 1
