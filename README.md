@@ -105,16 +105,4 @@ var0 +
 goto 3
 ```
 
-DecimalBinary (converts a decimal number to binary):
-```
-varlist 5
-var0 77
-var1 0
-var2 0
-if var0 0 goto 10
-var1 + ((var0 % 2) * (10 ^ var2))
-var0 // 2
-var2 +
-goto 5
-print var1
-```
+More examples in [examples folder](examples).

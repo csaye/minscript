@@ -1,0 +1,10 @@
+varlist 3
+var0 1001101
+var1 0
+var2 1
+if var0 0 goto 10
+var1 + ((var0 % 10) * var2)
+var2 * 2
+var0 // 10
+goto 5
+print var1
