@@ -1,8 +1,9 @@
+# prints factorial of var0
 varlist 2
 var0 7
 var1 1
-if var0 1 goto 8
+if var0 1 goto 9
 var1 * var0
 var0 -
-goto 4
+goto 5
 print var1

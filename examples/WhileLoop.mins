@@ -1,6 +1,7 @@
+# repeats until var0 is 10
 varlist 1
 var0 0
 if var0 10 end
 print var0
 var0 +
-goto 3
+goto 4

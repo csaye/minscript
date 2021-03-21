@@ -1,3 +1,5 @@
+# prints "hello" but not "world"
 varlist 1
 var0 0
 if var0 0 print hello
+if var0 1 print world

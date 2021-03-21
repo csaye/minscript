@@ -1,6 +1,0 @@
-varlist 1
-var0 0
-if var0 > 100 end
-print var0
-var0 + 5
-goto 3

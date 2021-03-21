@@ -34,9 +34,9 @@ A minimalist programming language written in Python.
 - if
   - executes given command if true
   - `varlist 1`
-  - `var0 a`
-  - `if var0 b print hello`
-  - `if var0 a print world` -> `world`
+  - `var0 0`
+  - `if var0 0 print hello` -> `hello`
+  - `if var0 1 print world`
 - end
   - ends program
   - `varlist 1`
@@ -47,27 +47,37 @@ A minimalist programming language written in Python.
 
 ## Examples
 
-Hello World (prints "hello world"):
 ```
+# prints "hello world"
 print hello world
 ```
 
-BinaryDecimal (converts a binary number to decimal):
 ```
+# repeats until var0 is 10
+varlist 1
+var0 0
+if var0 10 end
+print var0
+var0 +
+goto 4
+```
+
+```
+# prints decimal representation of var0
 varlist 3
 var0 1001101
 var1 0
 var2 1
-if var0 0 goto 10
+if var0 0 goto 11
 var1 + ((var0 % 10) * var2)
 var2 * 2
 var0 // 10
-goto 5
+goto 6
 print var1
 ```
 
-Fibonacci (prints all Fibonacci numbers up to 100):
 ```
+# prints Fibonacci numbers up to 100
 varlist 3
 var0 0
 var1 1
@@ -79,25 +89,25 @@ var2 + var1
 var0 var1
 var1 var2
 print var2
-goto 5
+goto 6
 ```
 
-FizzBuzz (prints FizzBuzz up to 100):
 ```
+# prints FizzBuzz up to 100
 varlist 1
 var0 1
 if var0 > 100 end
-if var0 % 3 0 goto 8
-if var0 % 5 0 goto 12
+if var0 % 3 0 goto 9
+if var0 % 5 0 goto 13
 print var0
-goto 13
+goto 14
 printin Fizz
-if var0 % 5 0 goto 12
+if var0 % 5 0 goto 13
 print
-goto 13
+goto 14
 print Buzz
 var0 +
-goto 3
+goto 4
 ```
 
 More examples in [examples folder](examples).
