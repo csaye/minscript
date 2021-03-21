@@ -23,9 +23,6 @@ A minimalist programming language written in Python.
   - `print 3`
   - `print 4`
   - `print 5` -> `5`
-- for
-  - repeats given command
-  - `for 3 print hi` -> `hi` `hi` `hi`
 - varlist
   - defines length of variable list
   - `varlist 3`
@@ -55,20 +52,18 @@ Hello World (prints "hello world"):
 print hello world
 ```
 
-Primes (prints all prime numbers up to 100):
+BinaryDecimal (converts a binary number to decimal):
 ```
-varlist 2
-var0 2
-var1 2
-if var1 var0 goto 8
-if var0 % var1 0 goto 9
-var1 +
-goto 4
-print var0
-var0 +
-if var0 > 100 end
-goto 3
-
+varlist 3
+var0 1001101
+var1 0
+var2 1
+if var0 0 goto 10
+var1 + ((var0 % 10) * var2)
+var2 * 2
+var0 // 10
+goto 5
+print var1
 ```
 
 Fibonacci (prints all Fibonacci numbers up to 100):

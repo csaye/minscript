@@ -133,14 +133,6 @@ def prc_com(command, args):
             index = line - 2
         except:
             fout.write('! Invalid goto !')
-    # for loop
-    elif command == 'for':
-        try:
-            count = prc_int(args[0])
-            for i in range(count):
-                prc_com(args[1], args[2:])
-        except:
-            fout.write('! Invalid for !\n')
     # if statement
     elif command == 'if':
         try:
