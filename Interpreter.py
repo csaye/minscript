@@ -58,6 +58,14 @@ def split(string):
             if len(word) > 0: words.append(word)
     return words
 
+# whether string is flt
+def is_flt(string):
+    try:
+        float(string)
+        return True
+    except:
+        return False
+
 # whether string is int
 def is_int(string):
     try:
@@ -66,8 +74,8 @@ def is_int(string):
     except:
         return False
 
-# process int
-def prc_int(string):
+# process float
+def prc_flt(string):
     # parentheses
     if string.startswith('('):
         # cut parentheses
@@ -75,22 +83,25 @@ def prc_int(string):
         string = string[1:i]
         words = split(string)
         # process vars and modifier
-        v_a = prc_int(words[0])
+        v_a = prc_flt(words[0])
         mod = words[1]
-        v_b = prc_int(words[2])
+        v_b = prc_flt(words[2])
         return ops[mod](v_a, v_b)
     # var
     elif string.startswith('var'):
         varidx = int(string[3:])
         return varlist[varidx]
     else:
-        return int(string)
+        return float(string)
+
+# process int
+def prc_int(string):
+    return int(prc_flt(string))
 
 # process string
 def prc_str(string):
     if string.startswith('var'):
-        varidx = int(string[3:])
-        return str(varlist[varidx])
+        return str(prc_var(string))
     else:
         return string
 
@@ -137,22 +148,22 @@ def prc_com(command, args):
     elif command == 'if':
         try:
             # get value and modifier
-            v_a = prc_int(args[0])
+            v_a = prc_flt(args[0])
             mod = args[1]
             # 2 arg operation
             if mod in ops2:
-                v_b = prc_int(args[2])
+                v_b = prc_flt(args[2])
                 if ops[mod](v_a, v_b):
                     prc_com(args[3], args[4:])
             # 3 arg operation
             elif mod in ops3:
-                v_b = prc_int(args[2])
-                v_c = prc_int(args[3])
+                v_b = prc_flt(args[2])
+                v_c = prc_flt(args[3])
                 if ops[mod](v_a, v_b) == v_c:
                     prc_com(args[4], args[5:])
             # single arg comparison
             else:
-                if v_a == prc_int(mod):
+                if v_a == prc_flt(mod):
                     prc_com(args[2], args[3:])
         except:
             fout.write('! Invalid if !\n')
@@ -172,11 +183,11 @@ def prc_com(command, args):
                 if len(args) < 2:
                     varlist[varidx] = ops[mod](v_a, 1)
                 else:
-                    v_b = prc_int(args[1])
+                    v_b = prc_flt(args[1])
                     varlist[varidx] = ops[mod](v_a, v_b)
-            # int arg
-            elif is_int(mod):
-                varlist[varidx] = int(mod)
+            # flt arg
+            elif is_flt(mod):
+                varlist[varidx] = float(mod)
             # var arg
             elif mod.startswith('var'):
                 varlist[varidx] = prc_var(mod)
