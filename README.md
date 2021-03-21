@@ -26,7 +26,7 @@ A minimalist programming language written in Python.
 - varlist
   - defines length of variable list
   - `varlist 3`
-- var
+- var[index]
   - enables variable assignment
   - `varlist 1`
   - `var0 hello world`
@@ -44,6 +44,30 @@ A minimalist programming language written in Python.
   - `if var0 10 end`
   - `var0 +`
   - `goto 3`
+
+## Operators
+
+- 2 operands
+  - < (less than)
+    - `if 1 < 2 print hello` -> `hello`
+  - \> (greater than)
+    - `if 2 > 1 print hello` -> `hello`
+
+- 3 operands
+  - \+ (addition)
+    - `if 2 + 2 4 print hello` -> `hello`
+  - \- (subtraction)
+    - `if 5 - 2 3 print hello` -> `hello`
+  - \* (multiplication)
+    - `if 2 * 3 6 print hello` -> `hello`
+  - / (true division)
+    - `if 5 / 2 2.5 print hello` -> `hello`
+  - ^ (power)
+    - `if 2 ^ 3 8 print hello` -> `hello`
+  - % (modulus)
+    - `if 5 % 2 1 print hello` -> `hello`
+  - // (floor division)
+    - `if 5 // 2 2 print hello` -> `hello`
 
 ## Examples
 
