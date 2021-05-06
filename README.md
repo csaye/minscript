@@ -1,4 +1,4 @@
-# min-script
+# MinScript
 A minimalist programming language written in Python.
 
 ## Commands
